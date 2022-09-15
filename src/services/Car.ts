@@ -12,7 +12,7 @@ class CarService implements IService<ICar> {
   public async create(obj: unknown): Promise<ICar> {
     const parsed = carZodSchema.safeParse(obj);
 
-    if (!parsed.success) throw parsed.error;
+    if (!parsed.success) throw new Error('InvalidPostParam');
 
     return this._car.create(parsed.data);
   }
