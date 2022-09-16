@@ -48,7 +48,7 @@ describe('Car Model', () => {
     });
   });
 
-  describe.only('return the updated car of the specified id', () => {
+  describe('return the updated car of the specified id', () => {
     it('successfully found and updated', async () => {
       const updatedCar = await carModel.update(carMockWithId._id, carMockWithId);
       expect(updatedCar).to.be.deep.equal(carMockWithIdUpdated);
