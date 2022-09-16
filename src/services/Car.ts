@@ -11,11 +11,8 @@ class CarService implements IService<ICar> {
   }
 
   public async create(obj: Partial<ICar>): Promise<ICar> {
-    const parsed = carZodSchema.safeParse(obj);
-
-    if (!parsed.success) throw parsed.error;
-
-    return this._car.create(parsed.data);
+    const dataParsed = CarService.validateParsed(obj);
+    return this._car.create(dataParsed);
   }
 
   public async read(): Promise<ICar[]> {
@@ -23,17 +20,30 @@ class CarService implements IService<ICar> {
   }
 
   public async readOne(_id: string): Promise<ICar> {
-    const car = await this._car.readOne(_id);
+    const result = await this._car.readOne(_id);
+    return CarService.validateCar(result);
+  }
+
+  public async update(_id: string, obj: Partial<ICar>): Promise<ICar> {
+    const dataParsed = CarService.validateParsed(obj);
+    const result = await this._car.update(_id, dataParsed);
+    return CarService.validateCar(result);
+  }
+
+  public async destroy(_id: string): Promise<ICar> {
+    const result = await this._car.destroy(_id);
+    return CarService.validateCar(result);
+  }
+
+  static validateCar(car: ICar | null) {
     if (!car) throw new Error(ErrorTypes.ObjectNotFound);
     return car;
   }
 
-  public async update(_id: string, obj: Partial<ICar>): Promise<ICar> {
+  static validateParsed(obj: Partial<ICar>) {
     const parsed = carZodSchema.safeParse(obj);
     if (!parsed.success) throw parsed.error;
-    const car = await this._car.update(_id, parsed.data);
-    if (!car) throw new Error(ErrorTypes.ObjectNotFound);
-    return car;
+    return parsed.data;
   }
 }
 
