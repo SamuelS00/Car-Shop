@@ -9,6 +9,7 @@ describe('Car Model', () => {
 
   before(() => {
     sinon.stub(Model, 'create').resolves(carMockWithId);
+    sinon.stub(Model, 'find').resolves([carMock]);
   });
 
   after(() => {
@@ -16,10 +17,16 @@ describe('Car Model', () => {
   });
 
   describe('creating a car', () => {
-    it('sucessfully created', async () => {
-       const newCar = await carModel.create(carMock);
-       expect(newCar).to.be.deep.equal(carMockWithId);
+    it('successfully created', async () => {
+      const newCar = await carModel.create(carMock);
+      expect(newCar).to.be.deep.equal(carMockWithId);
     });
   });
 
+  describe('returns all cars created', () => {
+    it('successfully returned', async () => {
+      const cars = await carModel.read();
+      expect(cars).to.be.deep.equal(cars)
+    });
+  });
 });
