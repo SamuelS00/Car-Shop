@@ -13,6 +13,7 @@ describe('Car Model', () => {
     sinon.stub(Model, 'find').resolves([carMock]);
     sinon.stub(Model, 'findOne').resolves(carMockWithId);
     sinon.stub(Model, 'findOneAndUpdate').resolves(carMockWithIdUpdated);
+    sinon.stub(Model, 'findByIdAndDelete').resolves(carMock);
   });
 
   after(() => {
@@ -57,6 +58,21 @@ describe('Car Model', () => {
     it('_id not found', async () => {
       try {
 				await carModel.update('iderrado', carMockWithIdUpdated);
+			} catch (error: any) {
+				expect(error.message).to.be.deep.equal('InvalidMongoId');
+			}
+    });
+  });
+
+  describe('return the deleted car of the specified id', () => {
+    it('successfully found and deleted', async () => {
+      const deletedCar = await carModel.destroy(carMockWithId._id);
+      expect(deletedCar).to.be.deep.equal(carMock);
+    });
+
+    it('_id not found', async () => {
+      try {
+				await carModel.destroy('iderrado');
 			} catch (error: any) {
 				expect(error.message).to.be.deep.equal('InvalidMongoId');
 			}
