@@ -5,7 +5,7 @@ import { ErrorTypes } from '../../../errors/catalog';
 // import { ErrorTypes } from '../../../errors/catalog';
 import CarModel from '../../../models/Car';
 import CarService from '../../../services/Car';
-import { carMock, carMockWithId } from '../../mocks/carMock';
+import { carMock, carMockWithId, carMockWithIdUpdated } from '../../mocks/carMock';
 
 describe('Car Service', () => {
   const carModel = new CarModel();
@@ -16,6 +16,9 @@ describe('Car Service', () => {
     sinon.stub(carModel, 'read').resolves([carMock]);
     sinon.stub(carModel, 'readOne')
       .onCall(0).resolves(carMockWithId)
+      .onCall(1).resolves(null);
+    sinon.stub(carModel, 'update')
+      .onCall(0).resolves(carMockWithIdUpdated)
       .onCall(1).resolves(null);
   });
 
@@ -60,6 +63,26 @@ describe('Car Service', () => {
 
       try {
         await carService.readOne(carMockWithId._id)
+      } catch (err: any) {
+        error = err;
+      }
+
+      expect(error).not.to.be.undefined;
+      expect(error.message).to.be.deep.equal(ErrorTypes.ObjectNotFound);
+    });
+  });
+
+  describe('Update Car', () => {
+    it('Success', async () => {
+       const updatedCar = await carService.update(carMockWithId._id, carMock);
+       expect(updatedCar).to.be.deep.equal(carMockWithIdUpdated);
+    });
+
+    it('Failure', async () => {
+      let error;
+
+      try {
+        await carService.update(carMockWithId._id, carMock)
       } catch (err: any) {
         error = err;
       }
