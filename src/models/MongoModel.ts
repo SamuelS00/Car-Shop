@@ -28,7 +28,7 @@ abstract class MongoModel<T> implements IModel<T> {
     return this._model.findOneAndUpdate(filter, update, { returnOriginal: false });
   }
 
-  public async destroy(_id: string): Promise<T | null> {
+  public async delete(_id: string): Promise<T | null> {
     MongoModel.validateObjectId(_id);
     return this._model.findByIdAndDelete({ _id });
   }
