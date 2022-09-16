@@ -6,7 +6,7 @@ import CarController from '../../../controllers/Car';
 import CarService from '../../../services/Car';
 import CarModel from '../../../models/Car';
 
-describe.only('Car Controller', () => {
+describe('Car Controller', () => {
   const carModel = new CarModel();
   const carService = new CarService(carModel);
   const carController = new CarController(carService);
