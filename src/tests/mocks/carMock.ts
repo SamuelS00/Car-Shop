@@ -21,4 +21,16 @@ const carMockWithId: ICar & { _id: string } = {
   seatsQty: 4
 }
 
-export { carMock, carMockWithId };
+const carMockWithIdUpdated: ICar & { _id: string } = {
+  _id: '62cf1fc6498565d94eba52cd',
+  model: 'Celta',
+  year: 2007,
+  color: 'Red',
+  status: true,
+  buyValue: 1000,
+  doorsQty: 4,
+  seatsQty: 4
+}
+
+
+export { carMock, carMockWithId, carMockWithIdUpdated };
