@@ -42,7 +42,7 @@ describe('Car Model', () => {
       try {
 				await carModel.readOne('iderrado');
 			} catch (error: any) {
-				expect(error.message).to.be.equal('InvalidMongoId');
+				expect(error.message).to.be.deep.equal('InvalidMongoId');
 			}
     });
   });
