@@ -1,6 +1,7 @@
 export enum ErrorTypes {
   InvalidMongoId = 'InvalidMongoId',
   InvalidPostParam = 'InvalidPostParam',
+  ObjectNotFound = 'ObjectNotFound',
 }
 
 type ErrorResponseObject = {
@@ -20,5 +21,9 @@ export const errorCatalog: ErrorCatalog = {
   InvalidPostParam: {
     message: 'Parameters should be valid',
     httpStatus: 400,
+  },
+  ObjectNotFound: {
+    message: 'Object not found',
+    httpStatus: 404,
   },
 };
