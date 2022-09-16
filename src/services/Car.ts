@@ -10,7 +10,7 @@ class CarService implements IService<ICar> {
     this._car = model;
   }
 
-  public async create(obj: unknown): Promise<ICar> {
+  public async create(obj: Partial<ICar>): Promise<ICar> {
     const parsed = carZodSchema.safeParse(obj);
 
     if (!parsed.success) throw parsed.error;
@@ -28,7 +28,7 @@ class CarService implements IService<ICar> {
     return car;
   }
 
-  public async update(_id: string, obj: unknown): Promise<ICar> {
+  public async update(_id: string, obj: Partial<ICar>): Promise<ICar> {
     const parsed = carZodSchema.safeParse(obj);
     if (!parsed.success) throw parsed.error;
     const car = await this._car.update(_id, parsed.data);
