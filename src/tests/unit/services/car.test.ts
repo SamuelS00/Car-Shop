@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
 import { ZodError } from 'zod';
-import { ErrorTypes } from '../../../errors/catalog';
+// import { ErrorTypes } from '../../../errors/catalog';
 import CarModel from '../../../models/Car';
 import CarService from '../../../services/Car';
 import { carMock, carMockWithId } from '../../mocks/carMock';
