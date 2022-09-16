@@ -63,7 +63,7 @@ describe('Car Service', () => {
       } catch (err: any) {
         error = err;
       }
-      
+
       expect(error).not.to.be.undefined;
       expect(error.message).to.be.deep.equal(ErrorTypes.ObjectNotFound);
     });
