@@ -20,6 +20,9 @@ describe('Car Service', () => {
     sinon.stub(carModel, 'update')
       .onCall(0).resolves(carMockWithIdUpdated)
       .onCall(1).resolves(null);
+    sinon.stub(carModel, 'destroy')
+      .onCall(0).resolves(carMockWithId)
+      .onCall(1).resolves(null);
   });
 
   after(() => {
@@ -83,6 +86,26 @@ describe('Car Service', () => {
 
       try {
         await carService.update(carMockWithId._id, carMock)
+      } catch (err: any) {
+        error = err;
+      }
+
+      expect(error).not.to.be.undefined;
+      expect(error.message).to.be.deep.equal(ErrorTypes.ObjectNotFound);
+    });
+  });
+
+  describe('Destroy Car', () => {
+    it('Success', async () => {
+       const car = await carService.destroy(carMockWithId._id);
+       expect(car).to.be.deep.equal(carMockWithId);
+    });
+
+    it('Failure', async () => {
+      let error;
+
+      try {
+        await carService.destroy(carMockWithId._id)
       } catch (err: any) {
         error = err;
       }
