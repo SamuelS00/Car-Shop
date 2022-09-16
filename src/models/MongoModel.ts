@@ -1,4 +1,4 @@
-import { isValidObjectId, Model } from 'mongoose';
+import { isValidObjectId, Model, UpdateQuery } from 'mongoose';
 import { IModel } from '../interfaces/IModel';
 
 abstract class MongoModel<T> implements IModel<T> {
@@ -8,7 +8,7 @@ abstract class MongoModel<T> implements IModel<T> {
     this._model = model;
   }
 
-  public async create(obj:T):Promise<T> {
+  public async create(obj: Partial<T>):Promise<T> {
     return this._model.create({ ...obj });
   }
 
@@ -17,18 +17,24 @@ abstract class MongoModel<T> implements IModel<T> {
   }
 
   public async readOne(_id:string):Promise<T | null> {
-    if (!isValidObjectId(_id)) throw Error('InvalidMongoId');
+    MongoModel.validateObjectId(_id);
     return this._model.findOne({ _id });
   }
 
-  public async update(_id: string, obj:T):Promise<T | null> {
-    if (!isValidObjectId(_id)) throw Error('InvalidMongoId');
-    return this._model.findOneAndUpdate({ _id }, { obj });
+  public async update(_id: string, obj: Partial<T>):Promise<T | null> {
+    MongoModel.validateObjectId(_id);
+    const update = obj as UpdateQuery<T>;
+    const filter = { _id };
+    return this._model.findOneAndUpdate(filter, update, { returnOriginal: false });
   }
 
   public async delete(_id: string): Promise<T | null> {
-    if (!isValidObjectId(_id)) throw Error('InvalidMongoId');
+    MongoModel.validateObjectId(_id);
     return this._model.remove();
+  }
+  
+  static validateObjectId(_id: string) {
+    if (!isValidObjectId(_id)) throw Error('InvalidMongoId');
   }
 }
 
