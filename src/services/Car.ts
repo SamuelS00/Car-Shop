@@ -31,7 +31,7 @@ class CarService implements IService<ICar> {
   }
 
   public async destroy(_id: string): Promise<ICar> {
-    const result = await this._car.destroy(_id);
+    const result = await this._car.delete(_id);
     return CarService.validateCar(result);
   }
 
