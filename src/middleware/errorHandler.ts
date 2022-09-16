@@ -1,10 +1,11 @@
 import { ErrorRequestHandler } from 'express';
 import { ZodError } from 'zod';
 import { ErrorTypes, errorCatalog } from '../errors/catalog';
+import HttpStatusCodes from '../helpers/HttpStatusCode';
 
 const errorHandler: ErrorRequestHandler = (err: Error | ZodError, _req, res, _next) => {
   if (err instanceof ZodError) {
-    return res.status(400).json({ message: err.issues });
+    return res.status(HttpStatusCodes.BAD_REQUEST).json({ message: err.issues });
   }
 
   const messageAsErrorType = err.message as keyof typeof ErrorTypes;
@@ -17,7 +18,7 @@ const errorHandler: ErrorRequestHandler = (err: Error | ZodError, _req, res, _ne
   }
 
   console.error(err);
-  return res.status(500).json({ message: 'internal error' });
+  return res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).json({ message: 'internal error' });
 };
 
 export default errorHandler;
