@@ -20,7 +20,7 @@ describe('Car Service', () => {
     sinon.stub(carModel, 'update')
       .onCall(0).resolves(carMockWithIdUpdated)
       .onCall(1).resolves(null);
-    sinon.stub(carModel, 'destroy')
+    sinon.stub(carModel, 'delete')
       .onCall(0).resolves(carMockWithId)
       .onCall(1).resolves(null);
   });
