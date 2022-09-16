@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import CarModel from '../../../models/Car';
 import { Model } from 'mongoose';
-import { carMock, carMockWithId } from '../../mocks/carMock';
+import { carMock, carMockWithId, carMockWithIdUpdated } from '../../mocks/carMock';
 import CarService from '../../../services/Car';
 
 describe('Car Model', () => {
@@ -12,6 +12,7 @@ describe('Car Model', () => {
     sinon.stub(Model, 'create').resolves(carMockWithId);
     sinon.stub(Model, 'find').resolves([carMock]);
     sinon.stub(Model, 'findOne').resolves(carMockWithId);
+    sinon.stub(Model, 'findOneAndUpdate').resolves(carMockWithIdUpdated);
   });
 
   after(() => {
@@ -32,7 +33,7 @@ describe('Car Model', () => {
     });
   });
 
-  describe('returns car from specified id successfully ', () => {
+  describe('return car from specified id successfully ', () => {
     it('successfully found', async () => {
       const car = await carModel.readOne(carMockWithId._id);
       expect(car).to.be.deep.equal(carMockWithId);
@@ -41,6 +42,21 @@ describe('Car Model', () => {
     it('_id not found', async () => {
       try {
 				await carModel.readOne('iderrado');
+			} catch (error: any) {
+				expect(error.message).to.be.deep.equal('InvalidMongoId');
+			}
+    });
+  });
+
+  describe.only('return the updated car of the specified id', () => {
+    it('successfully found and updated', async () => {
+      const updatedCar = await carModel.update(carMockWithId._id, carMockWithId);
+      expect(updatedCar).to.be.deep.equal(carMockWithIdUpdated);
+    });
+
+    it('_id not found', async () => {
+      try {
+				await carModel.update('iderrado', carMockWithIdUpdated);
 			} catch (error: any) {
 				expect(error.message).to.be.deep.equal('InvalidMongoId');
 			}
