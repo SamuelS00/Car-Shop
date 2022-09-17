@@ -9,10 +9,13 @@ const carModel = new CarModel();
 const carService = new CarService(carModel);
 const carController = new CarController(carService);
 
-route.post('/cars', (req, res) => carController.create(req, res));
-route.get('/cars', (req, res) => carController.read(req, res));
-route.get('/cars/:id', (req, res) => carController.readOne(req, res));
-route.put('/cars/:id', (req, res) => carController.update(req, res));
-route.delete('/cars/:id', (req, res) => carController.destroy(req, res));
+const URL_CAR = '/cars';
+const URL_CAR_ID = URL_CAR.concat(URL_CAR);
+
+route.post(URL_CAR, (req, res) => carController.create(req, res));
+route.get(URL_CAR, (req, res) => carController.read(req, res));
+route.get(URL_CAR_ID, (req, res) => carController.readOne(req, res));
+route.put(URL_CAR_ID, (req, res) => carController.update(req, res));
+route.delete(URL_CAR_ID, (req, res) => carController.destroy(req, res));
 
 export default route;
