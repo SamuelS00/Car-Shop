@@ -1,15 +1,10 @@
 import { Router } from 'express';
-import MotorcycleController from '../controllers/Motorcycle';
-import MotorcycleService from '../services/Motorcycle';
-import MotorcycleModel from '../models/Motorcycle';
+import CreateMotorcycleControllerFactory from '../factories/Motorcycle';
 
 const route = Router();
+const motorcycleController = CreateMotorcycleControllerFactory.make();
 
-const motorcycleModel = new MotorcycleModel();
-const motorcycleService = new MotorcycleService(motorcycleModel);
-const motorcycleController = new MotorcycleController(motorcycleService);
-
-const URL_MOTORCYCLE = '/motorcycle';
+const URL_MOTORCYCLE = '/motorcycles';
 const URL_MOTORCYCLE_ID = URL_MOTORCYCLE.concat('/:id');
 
 route.post(URL_MOTORCYCLE, (req, res) => motorcycleController.create(req, res));
