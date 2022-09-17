@@ -1,16 +1,11 @@
 import { Router } from 'express';
-import CarController from '../controllers/Car';
-import CarModel from '../models/Car';
-import CarService from '../services/Car';
+import CreateCarControllerFactory from '../factories/Car';
 
 const route = Router();
-
-const carModel = new CarModel();
-const carService = new CarService(carModel);
-const carController = new CarController(carService);
+const carController = CreateCarControllerFactory.make();
 
 const URL_CAR = '/cars';
-const URL_CAR_ID = URL_CAR.concat(URL_CAR);
+const URL_CAR_ID = URL_CAR.concat('/:id');
 
 route.post(URL_CAR, (req, res) => carController.create(req, res));
 route.get(URL_CAR, (req, res) => carController.read(req, res));
