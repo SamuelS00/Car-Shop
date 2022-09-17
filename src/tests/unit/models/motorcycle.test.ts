@@ -8,7 +8,7 @@ import {
   motorcycleMockWithIdUpdated 
 } from '../../mocks/motorcycleMock';
 
-describe.only('Motorcycle Model', () => {
+describe('Motorcycle Model', () => {
   const motorcycleModel = new MotorcycleModel();
 
   before(() => {
