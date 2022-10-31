@@ -81,10 +81,6 @@ following `MSC` software architecture (Model - Service - Controller) and `REST` 
 
   ✨ **Dica:** A extensão `Remote - Containers` (que estará na seção de extensões recomendadas do VS Code) é indicada para que você possa desenvolver sua aplicação no container Docker direto no VS Code, como você faz com seus arquivos locais.
 
-<img src="images/remote-container.png" width="800px" >
-
-## Localmente
-
 > Instale as dependências [**Caso existam**] com `npm install`
 
   ✨ **Dica:** Para rodar o projeto desta forma, obrigatoriamente você deve ter o `node` instalado em seu computador.
