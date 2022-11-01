@@ -1,0 +1,327 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "REST API",
+    "description": ""
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/cars/": {
+      "post": {
+        "tags": [
+          "Cars"
+        ],
+        "description": "Adds a new car to the database",
+        "parameters": [
+          { 
+            "in": "body",
+            "description": "data to create a new user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Car"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "returns the new car with an id",
+            "schema": {
+              "$ref": "#/definitions/CarWithId"
+            }
+          },
+          "400": {
+            "description": "returns an error if any of the attributes are missing"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Cars"
+        ],
+        "description": "returns a list of all cars created in the database",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "schema": { 
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CarWithId"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cars/{id}": {
+      "get": {
+        "tags": [
+          "Cars"
+        ],
+        "description": "return a car according to a specific id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": { 
+              "$ref": "#/definitions/CarWithId"
+            }
+          },
+          "400": {
+            "description": "returns if the id is not 24 characters long",
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Id must have 24 hexadecimal characters"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "if the id has 24 but is invalid",
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Object not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Cars"
+        ],
+        "description": "updates a car based on data passed to the body",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          { 
+            "in": "body",
+            "description": "data to update a new user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Car"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": { 
+              "$ref": "#/definitions/CarWithId"
+            }
+          },
+          "400": {
+            "description": "returns if the id is not 24 characters long",
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Id must have 24 hexadecimal characters"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "if the id has 24 but is invalid",
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Object not found"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cars"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "if the car is successfully deleted from the database there will be no return"
+          },
+          "400": {
+            "description": "returns if the id is not 24 characters long",
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Id must have 24 hexadecimal characters"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "if the id has 24 but is invalid",
+            "schema": {
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Object not found"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/motorcycles/": {
+      "post": {
+        "tags": [
+          "Motorcycles"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "get": {
+        "tags": [
+          "Motorcycles"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/motorcycles/{id}": {
+      "get": {
+        "tags": [
+          "Motorcycles"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      },
+      "put": {
+        "tags": [
+          "Motorcycles"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      },
+      "delete": {
+        "tags": [
+          "Motorcycles"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    }
+  },
+  "definitions": {
+    "Car": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "type": "string",
+          "example": "Ferrari"
+        },
+        "year": {
+          "type": "number",
+          "example": 1963
+        },
+        "color": {
+          "type": "string",
+          "example": "red"
+        },
+        "buyvalue": {
+          "type": "number",
+          "example": 350000
+        },
+        "seatsQty": {
+          "type": "number",
+          "example": 2
+        },
+        "doorsQty": {
+          "type": "number",
+          "example": 2
+        }
+      }
+    },
+    "CarWithId": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "type": "string",
+          "example": "Ferrari"
+        },
+        "year": {
+          "type": "number",
+          "example": 1963
+        },
+        "color": {
+          "type": "string",
+          "example": "red"
+        },
+        "buyvalue": {
+          "type": "number",
+          "example": 350000
+        },
+        "seatsQty": {
+          "type": "number",
+          "example": 2
+        },
+        "doorsQty": {
+          "type": "number",
+          "example": 2
+        },
+        "_id": {
+          "type": "string",
+          "example": "63612147f411728c962a670d"
+        }
+      }
+    }
+  }
+}
