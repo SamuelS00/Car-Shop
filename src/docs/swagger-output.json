@@ -78,28 +78,16 @@
             }
           },
           "400": {
-            "description": "returns if the id is not 24 characters long",
             "schema": {
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "Id must have 24 hexadecimal characters"
-                }
-              }
+              "$ref": "#/definitions/400"
             }
           },
           "404": {
-            "description": "if the id has 24 but is invalid",
             "schema": {
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "Object not found"
-                }
-              }
+              "$ref": "#/definitions/404"
             }
           }
-        }
+        }       
       },
       "put": {
         "tags": [
@@ -129,25 +117,13 @@
             }
           },
           "400": {
-            "description": "returns if the id is not 24 characters long",
             "schema": {
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "Id must have 24 hexadecimal characters"
-                }
-              }
+              "$ref": "#/definitions/400"
             }
           },
           "404": {
-            "description": "if the id has 24 but is invalid",
             "schema": {
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "Object not found"
-                }
-              }
+              "$ref": "#/definitions/404"
             }
           }
         }
@@ -156,7 +132,7 @@
         "tags": [
           "Cars"
         ],
-        "description": "",
+        "description": "this outfit has the responsibility to delete a car of the id specified via parameter",
         "parameters": [
           {
             "name": "id",
@@ -170,25 +146,13 @@
             "description": "if the car is successfully deleted from the database there will be no return"
           },
           "400": {
-            "description": "returns if the id is not 24 characters long",
             "schema": {
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "Id must have 24 hexadecimal characters"
-                }
-              }
+              "$ref": "#/definitions/400"
             }
           },
           "404": {
-            "description": "if the id has 24 but is invalid",
             "schema": {
-              "properties": {
-                "message": {
-                  "type": "string",
-                  "example": "Object not found"
-                }
-              }
+              "$ref": "#/definitions/404"
             }
           }
         }
@@ -199,17 +163,45 @@
         "tags": [
           "Motorcycles"
         ],
-        "description": "",
-        "parameters": [],
-        "responses": {}
+        "description": "Adds a new motorcycle to the database",
+        "parameters": [
+          { 
+            "in": "body",
+            "description": "data to create a new user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Motorcycle"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "returns the new motorcycle with an id",
+            "schema": {
+              "$ref": "#/definitions/MotorcycleWithId"
+            }
+          },
+          "400": {
+            "description": "returns an error if any of the attributes are missing"
+          }
+        }
       },
       "get": {
         "tags": [
           "Motorcycles"
         ],
-        "description": "",
+        "description": "returns a list of all motorcyles created in the database",
         "parameters": [],
-        "responses": {}
+        "responses": {
+          "200": {
+            "schema": { 
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MotorcycleWithId"
+              }
+            }
+          }
+        }
       }
     },
     "/motorcycles/{id}": {
@@ -217,7 +209,7 @@
         "tags": [
           "Motorcycles"
         ],
-        "description": "",
+        "description": "return a motorcycle according to a specific id",
         "parameters": [
           {
             "name": "id",
@@ -226,28 +218,68 @@
             "type": "string"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "schema": { 
+              "$ref": "#/definitions/MotorcycleWithId"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/400"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/404"
+            }
+          }
+        }
       },
       "put": {
         "tags": [
           "Motorcycles"
         ],
-        "description": "",
+        "description": "updates a motorcycle based on data passed to the body",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          { 
+            "in": "body",
+            "description": "data to update a new motorcycle",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Motorcycle"
+            }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "schema": { 
+              "$ref": "#/definitions/MotorcycleWithId"
+            }
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/400"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/404"
+            }
+          }
+        }
       },
       "delete": {
         "tags": [
           "Motorcycles"
         ],
-        "description": "",
+        "description": "this outfit has the responsibility to delete a motorcycle of the id specified via parameter",
         "parameters": [
           {
             "name": "id",
@@ -256,7 +288,21 @@
             "type": "string"
           }
         ],
-        "responses": {}
+        "responses": {
+          "204": {
+            "description": "if the motorcycle is successfully deleted from the database there will be no return"
+          },
+          "400": {
+            "schema": {
+              "$ref": "#/definitions/400"
+            }
+          },
+          "404": {
+            "schema": {
+              "$ref": "#/definitions/404"
+            }
+          }
+        }
       }
     }
   },
@@ -320,6 +366,86 @@
         "_id": {
           "type": "string",
           "example": "63612147f411728c962a670d"
+        }
+      }
+    },
+    "Motorcycle": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "type": "string",
+          "example": "Honda CG Titan 125"
+        },
+        "year": {
+          "type": "number",
+          "example": 1963
+        },
+        "color": {
+          "type": "string",
+          "example": "red"
+        },
+        "buyvalue": {
+          "type": "number",
+          "example": 350000
+        },
+        "category": {
+          "type": "string",
+          "example": "street"
+        },
+        "engineCapacity": {
+          "type": "number",
+          "example": 125
+        }
+      }
+    },
+    "MotorcycleWithId": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "string",
+          "example": "4edd40c86762e0fb12000003"
+        },
+        "model": {
+          "type": "string",
+          "example": "Honda CG Titan 125"
+        },
+        "year": {
+          "type": "number",
+          "example": 1963
+        },
+        "color": {
+          "type": "string",
+          "example": "red"
+        },
+        "buyvalue": {
+          "type": "number",
+          "example": 350000
+        },
+        "category": {
+          "type": "string",
+          "example": "street"
+        },
+        "engineCapacity": {
+          "type": "number",
+          "example": 125
+        }
+      }
+    },
+    "400": {
+      "description": "returns if the id is not 24 characters long",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "Id must have 24 hexadecimal characters"
+        }
+      }
+    },
+    "404": {
+      "description": "if the id has 24 but is invalid",
+      "properties": {
+        "message": {
+          "type": "string",
+          "example": "Object not found"
         }
       }
     }
