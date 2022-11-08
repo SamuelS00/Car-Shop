@@ -2,9 +2,9 @@
 
 # About
 
-This challenge deals with the development of a Back-end application in Node.js using Express, applying the principles of Object Oriented Programming (`OOP`) to build an API with `CRUD` to manage a car dealership. This will be done using the `MongoDB` database.
+This challenge deals with the development of a Back-end application in Node.js using Express, applying the principles of Object-Oriented Programming (`OOP`) to build an API with `CRUD` to manage a car dealership. This will be done using the `MongoDB` database.
 
-following `MSC` software architecture (Model - Service - Controller) and `REST` web architecture principles, connecting to a `MySQL` database for information persistence.
+Following `MSC` software architecture (Model - Service - Controller) and `REST` web architecture principles, connecting to a `MySQL` database for information persistence.
 
 # ****Technologies Used****
 
@@ -12,12 +12,11 @@ following `MSC` software architecture (Model - Service - Controller) and `REST` 
 ![JavaScript](https://img.shields.io/badge/-JavaScript-05122A?style=flat&logo=javascript)&nbsp;
 ![Node.js](https://img.shields.io/badge/-Node.js-05122A?style=flat&logo=node.js)&nbsp;
 ![Express](https://img.shields.io/badge/-Express-05122A?style=flat&logo=express)&nbsp;
-![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=flat&logo=mongodb&logoColor=white)&nbsp;
+![MongoDB](https://img.shields.io/badge/MongoDB-05122A?style=flat&logo=mongodb)&nbsp;
 ![ESLint](https://img.shields.io/badge/-ESLint-05122A?style=flat&logo=eslint)&nbsp;
 ![Chai](https://img.shields.io/badge/-Chai-05122A?style=flat&logo=chai)&nbsp;
 ![Mocha](https://img.shields.io/badge/-Mocha-05122A?style=flat&logo=mocha)&nbsp;
-![Sinon](https://img.shields.io/badge/-Sinon-05122A?style=flat&logo=sinon)&nbsp;
-![Git](https://img.shields.io/badge/-Git-05122A?style=flat&logo=git)&nbsp;
+![Git](https://img.shields.io/badge/-Git-05122A?style=flat&logo=git)&nbsp&nbsp;
 ![GitHub](https://img.shields.io/badge/-GitHub-05122A?style=flat&logo=github)&nbsp;
 ![Markdown](https://img.shields.io/badge/-Markdown-05122A?style=flat&logo=markdown)&nbsp;
 ![Docker](https://img.shields.io/badge/-Docker-05122A?style=flat&logo=docker)&nbsp;
@@ -88,6 +87,6 @@ If you don't have MongoDB installed on your machine and want to use Docker, just
 
 # Documentation
 
-go to `http://localhost/3000/docs`
+go to `http://localhost/3001/docs`
 
-![1667081534004](image/README/1667081534004.png)
+![1227839930382](image/README/1227839930382.png)
